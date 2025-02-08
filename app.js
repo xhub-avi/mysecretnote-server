@@ -44,10 +44,10 @@ app.get('/random-word', (req, res) => {
     });
 });
 
-app.use(express.static(path.join(__dirname, '..')))
+app.use(express.static(path.join(__dirname)))
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'index.html'))
+    res.sendFile(path.join(__dirname, 'index.html'))
 })
 app.listen(port, function() {
     console.log(`서버가 http://localhost:${port}에서 실행 중입니다.`)
