@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <!-- Font Awesome CDN 추가 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+        body {
+            word-wrap: break-word;
+            font-family: Pretendard, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            background-color: #f4f4f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            box-sizing: border-box;
+            text-align: center;
+            flex-direction: column;
+            padding: 5vh 2vw;
+        }
+
+        .word {
+            font-weight: 700;
+            color: #007aff;
+        }
+        .meaning {
+            font-weight: 600;
+            color: #000000;
+        }
+        .pronunciation {
+            font-weight: 400;
+            color: #adb5bd;
+        }
+        .example{
+            color: grey;
+            font-weight: 100;
+            font-style: italic;
+        }
+
+        /* 모바일 */
+        @media (max-width: 499px){
+            .word, .pronunciation, .meaning, .example {
+            margin: 1vw 0;
+            line-height: 100%;
+        }
+
+            .word {
+                font-size: 15vw;
+            }
+            .meaning {
+                font-size: 8vw;
+            }
+            .pronunciation {
+                font-size: 5vw;
+            }
+            .example {
+                margin-top: 4vw;
+                font-size: 6vw;
+            }
+        }
+
+        /* 태블릿 */
+        @media (max-width: 1199px) and (min-width: 500px) {
+            .word, .pronunciation, .meaning, .example {
+            margin: 2vw 0;
+            line-height: 100%;
+        }
+
+            .word {
+                font-size: 10vw;
+            }
+            .meaning {
+                margin: 1vw 0;
+                font-size: 5vw;
+            }
+            .pronunciation {
+                font-size: 2.5vw;
+                margin-bottom: 0;
+            }
+            .example {
+                font-size: 3vw;
+                margin-left: 10vw;
+                margin-right: 10vw;
+            }
+        }
+
+        /* 더 큰 화면 */
+        @media (min-width: 1200px) {
+            .word, .pronunciation, .meaning, .example {
+            margin: 0.5vw 0;
+            line-height: 100%;
+        }
+
+            .word {
+                font-size: 8vw;
+            }
+            .meaning {
+                font-size: 3vw;
+            }
+            .pronunciation {
+                font-size: 1.5vw;
+            }
+            .example {
+                font-size: 2vw;
+                margin-left: 10vw;
+                margin-right: 10vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="word"></div>
+    <div class="meaning"></div>
+    <div class="pronunciation"></div>
+    <div class="example"></div>
+
+<script>
+    // 서버에서 단어를 가져오는 함수
+    function generateWord() {
+        fetch('https://port-0-mysecretnote-server12-m6w1vqu0fef5f67b.sel4.cloudtype.app/random-word')
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector('title').textContent = data.word;
+                document.querySelector('.word').textContent = `${data.word}`;
+                document.querySelector('.meaning').textContent = `${data.meaning}`;
+                document.querySelector('.pronunciation').textContent = `[${data.pronunciation}]`;
+                document.querySelector('.example').textContent = `${data.example}`;
+            })
+            .catch(error => {
+                console.error('Error fetching word:', error);
+            });
+    }
+
+    // 페이지 로드 시 자동으로 단어를 표시
+    window.onload = function() {
+        generateWord();
+    };
+</script>
+
+</body>
+</html>
